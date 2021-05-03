@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework',
+    'flashcard.apps.FlashcardConfig'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +83,7 @@ DATABASES = {
         'ENGINE': 'mysql.connector.django',
         'NAME': 'flashcard_db',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'NickMangold74!',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
