@@ -21,13 +21,33 @@ class FlashcardList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-class FlashcardDetail(APIView):
-    def get_object(self, pk):
+    def get_flashcard_by_collection(self, fk):
         try:
-            return Flashcard.objects.get(pk=pk)
+            return Flashcard.objects.filter(collection_name=fk)
         except Flashcard.DoesNotExist:
             raise Http404
+
+
+
+
+
+class FlashcardDetail(APIView):
+    def get_object(self, fk):
+        try:
+            return Flashcard.objects.filter(collection_name=fk)
+        except Flashcard.DoesNotExist:
+            raise Http404
+
+    def get_object_by_fk(self, fk):
+        try:
+            return Flashcard.objects.get(pk=fk)
+        except Flashcard.DoesNotExist:
+            raise Http404
+
+    def get(self, request, fk):
+        collection = self.get_object(fk)
+        serializer = FlashcardSerializer(collection,  many=True)
+        return Response(serializer.data)
 
     def put(self, request, pk):
         flashcard = self.get_object(pk)
